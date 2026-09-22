@@ -16,6 +16,14 @@ class Message(BaseModel):
     timestamp:datetime=Field(default_factory=datetime.now)
     metadata: Dict[str,Any] = Field(default_factory=dict)
 
+    def __init__(self, content:str,role:MessageRole, **kwargs: Any) -> None:
+        super().__init__(
+            content = content,
+            role = role,
+            timestamp = kwargs.get('timestamp',datetime.now()),
+            metadata = kwargs.get("metadata",{})
+        )
+
     def to_dict(self)->Dict[str,Any]:
         """
         转换为字典格式(openAi API格式)
