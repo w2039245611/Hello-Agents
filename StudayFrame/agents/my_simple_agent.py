@@ -115,7 +115,7 @@ class MySimpleAgent(SimpleAgent):
 
 
             # 检查是否有工具调用
-            tool_calls = self._parse_tool_calls(response)
+            tool_calls = self._parse_tool_calls(response,)
 
 
             if tool_calls:
@@ -158,13 +158,14 @@ class MySimpleAgent(SimpleAgent):
         return final_response
 
 
-    def _parse_tool_calls(self, response,parameters):
+    def _parse_tool_calls(self, response):
         """
          解析文本中的工具调用
         :param response:
         :return:
         """
-        pattern = r'[TOOL_CALL:([^:]+):([^\]]+)\]'
+        pattern = r'\[TOOL_CALL:([^:]+):([^\]]+)\]'
+        # pattern = r'[TOOL_CALL:([^:]+):([^\]]+)\]'
         matches = re.findall(pattern,response)
 
         tool_calls = []
